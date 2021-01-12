@@ -19,7 +19,7 @@ export default function TodoList({ todos, setTodos }) {
     }
 
     return todos.map(todo => {
-        return <Accordion key={ todo }>
+        return <Accordion key={ todo.id }>
             <AccordionSummary
                 expandIcon={ !isDesktop && <ExpandMoreIcon/> }
                 aria-label="Expand"
