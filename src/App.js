@@ -3,6 +3,7 @@ import './App.css';
 import TodoList from "./todo-list/TodoList";
 import { Fab, makeStyles } from "@material-ui/core";
 import { Add as AddIcon } from "@material-ui/icons";
+import CreateDialog from "./create-dialog/CreateDialog";
 
 const useStyles = makeStyles({
     'add-button': {
@@ -15,6 +16,7 @@ const useStyles = makeStyles({
 function App() {
 
     const classes = useStyles();
+    const [ createOpen, setCreateOpen ] = useState(false);
     const [ todos, setTodos ] = useState([
         {
             id: 0,
@@ -37,10 +39,24 @@ function App() {
         }
     ]);
 
+    const createTodo = (newTodo) => {
+        const id = todos.map(todo => todo.id).max() + 1;
+        const todo = {
+            id,
+            title: newTodo.title,
+            information: newTodo.information,
+            dueDate: newTodo.dueDate,
+            done: false
+        };
+        setTodos([ ...todos, todo ]);
+    };
+
     return (
         <div className="App">
             <TodoList todos={ todos } setTodos={ setTodos }/>
-            <Fab color="primary" className={ classes["add-button"] } children={ (<AddIcon/>) }/>
+            <Fab onClick={ () => setCreateOpen(true) } color="primary" className={ classes["add-button"] }
+                 children={ (<AddIcon/>) }/>
+            <CreateDialog createTodo={ createTodo } open={ createOpen } setOpen={ setCreateOpen }/>
         </div>
     );
 }
