@@ -1,4 +1,7 @@
-# Getting Started with Create React App
+# todo-app
+
+This is a small todo app written with [React](https://reactjs.org) and [Material UI](https://material-ui.com).
+This app is publicly hosted on [GitHub Pages](nycodeghg.github.io/todo-app/).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
