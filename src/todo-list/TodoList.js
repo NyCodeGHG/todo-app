@@ -61,7 +61,7 @@ export default function TodoList({ todos, setTodos }) {
     };
 
     const compareTodo = (a, b) => {
-        return a.title > b.title;
+        return a.title.toLowerCase() > b.title.toLowerCase();
     };
 
     const accordions = todos.sort(compareTodo).map(todo => {
