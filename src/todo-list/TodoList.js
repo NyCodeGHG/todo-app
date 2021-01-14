@@ -18,6 +18,7 @@ import {
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useState } from "react";
 import moment from "moment";
+import EditDialog from "../edit-dialog/EditDialog";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -61,7 +62,8 @@ function sort(sortMethod, todos) {
 
 export default function TodoList({ todos, setTodos, sortMethod, query }) {
 
-    const [ open, setOpen ] = useState(false);
+    const [ deleteOpen, setDeleteOpen ] = useState(false);
+    const [ editOpen, setEditOpen ] = useState(false);
     const [ dialogTodo, setDialogTodo ] = useState({});
     const isDesktop = useMediaQuery('(min-width: 600px)');
     const classes = useStyles();
@@ -73,8 +75,13 @@ export default function TodoList({ todos, setTodos, sortMethod, query }) {
 
     const showDeleteDialog = (event, id) => {
         setDialogTodo(todos.find(todo => todo.id === id));
-        setOpen(true);
+        setDeleteOpen(true);
     };
+
+    const showEditDialog = (event, id) => {
+        setDialogTodo(todos.find(todo => todo.id === id));
+        setEditOpen(true);
+    }
 
     const deleteTodo = (event, id) => {
         const newTodos = todos.filter(todo => todo.id !== id);
@@ -85,6 +92,16 @@ export default function TodoList({ todos, setTodos, sortMethod, query }) {
         return todo.description?.toLowerCase().includes(query.toLowerCase().trim()) ||
             todo.title.toLowerCase().includes(query.toLowerCase().trim());
     }
+
+    const saveEditedTodo = () => {
+        setTodos(todos.map(todo => {
+            if (todo.id === dialogTodo.id) {
+                return dialogTodo;
+            } else {
+                return todo;
+            }
+        }));
+    };
 
     let renderTodos = sort(sortMethod, todos);
 
@@ -116,7 +133,8 @@ export default function TodoList({ todos, setTodos, sortMethod, query }) {
                 </Grid>
             </AccordionDetails>
             <AccordionActions>
-                <Button variant="contained" color="primary">Edit</Button>
+                <Button onClick={ (event) => showEditDialog(event, todo.id) } variant="contained"
+                        color="primary">Edit</Button>
                 <Button onClick={ (event) => showDeleteDialog(event, todo.id) }
                         variant="contained"
                         color="secondary">Delete</Button>
@@ -125,10 +143,10 @@ export default function TodoList({ todos, setTodos, sortMethod, query }) {
     });
 
     const handleClose = () => {
-        setOpen(false);
+        setDeleteOpen(false);
     }
 
-    const deleteDialog = (<Dialog open={ open }
+    const deleteDialog = (<Dialog open={ deleteOpen }
                                   onClose={ handleClose }
                                   aria-labelledby="alert-dialog-title"
                                   aria-describedby="alert-dialog-description">
@@ -154,5 +172,7 @@ export default function TodoList({ todos, setTodos, sortMethod, query }) {
     return (<>
         { accordions }
         { deleteDialog }
+        <EditDialog save={ saveEditedTodo } todo={ dialogTodo } setTodo={ setDialogTodo } open={ editOpen }
+                    setOpen={ setEditOpen }/>
     </>);
 }
