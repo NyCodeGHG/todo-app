@@ -74,7 +74,9 @@ export default function TodoList({ todos, setTodos }) {
                 <FormControlLabel
                     onClick={ (event) => event.stopPropagation() }
                     onFocus={ (event) => event.stopPropagation() }
-                    control={ <Checkbox value={ todo.done } onChange={ (event) => handleChange(event, todo.id) }/> }
+                    checked={ todo.done }
+                    onChange={ (event) => handleChange(event, todo.id) }
+                    control={ <Checkbox/> }
                     label={ todo.title }>
                 </FormControlLabel>
             </AccordionSummary>

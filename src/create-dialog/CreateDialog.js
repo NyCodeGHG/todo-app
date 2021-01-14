@@ -35,10 +35,10 @@ export default function CreateDialog(props) {
         });
     }
 
-    function handleDoneChange(done) {
+    function handleDoneChange(event) {
         setTodo({
             ...todo,
-            done
+            done: event.target.value
         });
     }
 
