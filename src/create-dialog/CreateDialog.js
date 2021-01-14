@@ -1,11 +1,12 @@
 import {
-    Button, Checkbox,
+    Button,
+    Checkbox,
     Dialog,
     DialogActions,
     DialogContent,
-    DialogTitle, FormControlLabel,
+    DialogTitle,
+    FormControlLabel,
     Grid,
-    TextareaAutosize,
     TextField
 } from "@material-ui/core";
 import { DateTimePicker } from "@material-ui/pickers";
@@ -41,11 +42,23 @@ export default function CreateDialog(props) {
         });
     }
 
-    function handleTitleChange(title) {
+    function handleInformationChange(event) {
         setTodo({
             ...todo,
-            title
+            information: event.target.value
         });
+    }
+
+    function handleTitleChange(event) {
+        setTodo({
+            ...todo,
+            title: event.target.value
+        });
+    }
+
+    function handleCreation() {
+        createTodo(todo);
+        handleClose();
     }
 
     return (
@@ -75,6 +88,8 @@ export default function CreateDialog(props) {
                             label="Additional information"
                             type="text"
                             multiline
+                            onChange={ handleInformationChange }
+                            value={ todo.information }
                             rows={ 4 }
                         />
                     </Grid>
@@ -101,7 +116,7 @@ export default function CreateDialog(props) {
             </DialogContent>
             <DialogActions>
                 <Button color="secondary" onClick={ handleClose }>Cancel</Button>
-                <Button color="primary" disabled={ todo.title.trim() === '' }>Save</Button>
+                <Button color="primary" onClick={ handleCreation } disabled={ todo.title === '' }>Save</Button>
             </DialogActions>
         </Dialog>
     )

@@ -42,13 +42,14 @@ function App() {
     ]);
 
     const createTodo = (newTodo) => {
-        const id = todos.map(todo => todo.id).max() + 1;
+        const ids = todos.map(todo => todo.id);
+        const id = Math.max(...ids) + 1;
         const todo = {
             id,
             title: newTodo.title,
             information: newTodo.information,
             dueDate: newTodo.dueDate,
-            done: false
+            done: newTodo.done
         };
         setTodos([ ...todos, todo ]);
     };
