@@ -39,7 +39,27 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function TodoList({ todos, setTodos }) {
+const compareAlphabetically = (a, b) => {
+    return a.title.toLowerCase() > b.title.toLowerCase();
+};
+
+function sort(sortMethod, todos) {
+    switch (sortMethod) {
+        case 'default': {
+            return todos.sort(compareAlphabetically);
+        }
+        case 'oldest-first': {
+            return todos.filter(todo => todo.dueDate).sort((a, b) => {
+                return a.dueDate > b.dueDate;
+            });
+        }
+        case 'by-title': {
+            return todos.filter(todo => !todo.dueDate).sort(compareAlphabetically);
+        }
+    }
+}
+
+export default function TodoList({ todos, setTodos, sortMethod, query }) {
 
     const [ open, setOpen ] = useState(false);
     const [ dialogTodo, setDialogTodo ] = useState({});
@@ -61,11 +81,18 @@ export default function TodoList({ todos, setTodos }) {
         setTodos(newTodos);
     };
 
-    const compareTodo = (a, b) => {
-        return a.title.toLowerCase() > b.title.toLowerCase();
-    };
+    const matchesQuery = todo => {
+        return todo.description?.toLowerCase().includes(query.toLowerCase().trim()) ||
+            todo.title.toLowerCase().includes(query.toLowerCase().trim());
+    }
 
-    const accordions = todos.sort(compareTodo).map(todo => {
+    let renderTodos = sort(sortMethod, todos);
+
+    if (query.trim() !== '') {
+        renderTodos = renderTodos.filter(todo => matchesQuery(todo));
+    }
+
+    const accordions = renderTodos.map(todo => {
         return <Accordion key={ todo.id }>
             <AccordionSummary
                 expandIcon={ !isDesktop && <ExpandMoreIcon/> }
@@ -75,7 +102,7 @@ export default function TodoList({ todos, setTodos }) {
                 <FormControlLabel
                     onClick={ (event) => event.stopPropagation() }
                     onFocus={ (event) => event.stopPropagation() }
-                    checked={ todo.done }
+                    checked={ todo.done === true || todo.done === 'true' }
                     onChange={ (event) => handleChange(event, todo.id) }
                     control={ <Checkbox/> }
                     label={ todo.title }>
