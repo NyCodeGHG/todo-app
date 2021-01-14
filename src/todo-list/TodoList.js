@@ -17,6 +17,7 @@ import {
 } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useState } from "react";
+import moment from "moment";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -83,7 +84,7 @@ export default function TodoList({ todos, setTodos }) {
             <AccordionDetails>
                 <Grid container spacing={ 3 }>
                     { todo.dueDate &&
-                    <Grid className={ classes.fat } item xs={ 12 }>{ todo.dueDate.toLocaleString() }</Grid> }
+                    <Grid className={ classes.fat } item xs={ 12 }>{ moment(todo.dueDate).calendar() }</Grid> }
                     { todo.information && <Grid item xs={ 12 }>{ todo.information }</Grid> }
                 </Grid>
             </AccordionDetails>
