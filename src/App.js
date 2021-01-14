@@ -4,6 +4,8 @@ import TodoList from "./todo-list/TodoList";
 import { Fab, makeStyles } from "@material-ui/core";
 import { Add as AddIcon } from "@material-ui/icons";
 import CreateDialog from "./create-dialog/CreateDialog";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import MomentUtils from "@date-io/moment";
 
 const useStyles = makeStyles({
     'add-button': {
@@ -52,12 +54,14 @@ function App() {
     };
 
     return (
-        <div className="App">
-            <TodoList todos={ todos } setTodos={ setTodos }/>
-            <Fab onClick={ () => setCreateOpen(true) } color="primary" className={ classes["add-button"] }
-                 children={ (<AddIcon/>) }/>
-            <CreateDialog createTodo={ createTodo } open={ createOpen } setOpen={ setCreateOpen }/>
-        </div>
+        <MuiPickersUtilsProvider utils={ MomentUtils }>
+            <div className="App">
+                <TodoList todos={ todos } setTodos={ setTodos }/>
+                <Fab onClick={ () => setCreateOpen(true) } color="primary" className={ classes["add-button"] }
+                     children={ (<AddIcon/>) }/>
+                <CreateDialog createTodo={ createTodo } open={ createOpen } setOpen={ setCreateOpen }/>
+            </div>
+        </MuiPickersUtilsProvider>
     );
 }
 
