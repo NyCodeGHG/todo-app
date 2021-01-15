@@ -2,7 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mate
 import TodoDialog from "../todo-dialog/TodoDialog";
 
 export default function EditDialog({ todo, setTodo, open, setOpen, save }) {
-    return (<Dialog open={ open } onClose={ () => {
+    return (<Dialog fullWidth open={ open } onClose={ () => {
         setOpen(false);
     } }>
         <DialogTitle>Edit '{ todo.title }'</DialogTitle>

@@ -100,7 +100,14 @@ function App() {
 
     const createTodo = (newTodo) => {
         const ids = todos.map(todo => todo.id);
-        const id = Math.max(...ids) + 1;
+        let max;
+        console.log(ids);
+        if (ids.length === 0) {
+            max = 0;
+        } else {
+            max = Math.max(...ids);
+        }
+        const id = max + 1;
         const todo = {
             id,
             title: newTodo.title,

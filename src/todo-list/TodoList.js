@@ -19,6 +19,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useState } from "react";
 import moment from "moment";
 import EditDialog from "../edit-dialog/EditDialog";
+import ReactMarkdown from 'react-markdown';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -129,7 +130,7 @@ export default function TodoList({ todos, setTodos, sortMethod, query }) {
                 <Grid container spacing={ 3 }>
                     { todo.dueDate &&
                     <Grid className={ classes.fat } item xs={ 12 }>{ moment(todo.dueDate).calendar() }</Grid> }
-                    { todo.information && <Grid item xs={ 12 }>{ todo.information }</Grid> }
+                    { todo.information && <Grid item xs={ 12 }><ReactMarkdown children={ todo.information }/></Grid> }
                 </Grid>
             </AccordionDetails>
             <AccordionActions>

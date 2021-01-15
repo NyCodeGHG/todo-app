@@ -1,15 +1,4 @@
-import {
-    Button,
-    Checkbox,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    FormControlLabel,
-    Grid,
-    TextField
-} from "@material-ui/core";
-import { DateTimePicker } from "@material-ui/pickers";
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
 import { useState } from "react";
 import TodoDialog from "../todo-dialog/TodoDialog";
 
@@ -35,7 +24,7 @@ export default function CreateDialog(props) {
     }
 
     return (
-        <Dialog maxWidth="sm" open={ open }
+        <Dialog maxWidth="xl" open={ open }
                 onClose={ handleClose }
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description">
