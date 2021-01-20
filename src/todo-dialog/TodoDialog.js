@@ -1,5 +1,6 @@
 import {Checkbox, FormControlLabel, Grid, TextField} from "@material-ui/core";
 import {KeyboardDateTimePicker} from '@material-ui/pickers'
+import Alert from '@material-ui/lab/Alert';
 
 export default function TodoDialog({todo, setTodo}) {
 
@@ -32,6 +33,9 @@ export default function TodoDialog({todo, setTodo}) {
     }
 
     return (<Grid>
+        {(todo.dueDate < Date.now() && todo.dueDate !== null) && <Grid item xs={12}>
+            <Alert severity="warning">Warning: Date is in the past!</Alert>
+        </Grid>}
         <Grid item xs={12}>
             <TextField
                 inputProps={{
