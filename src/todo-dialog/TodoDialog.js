@@ -1,8 +1,7 @@
-import { Checkbox, FormControlLabel, Grid, makeStyles, TextField } from "@material-ui/core";
-import { DateTimePicker } from "@material-ui/pickers";
+import {Checkbox, FormControlLabel, Grid, TextField} from "@material-ui/core";
+import {KeyboardDateTimePicker} from '@material-ui/pickers'
 
-
-export default function TodoDialog({ todo, setTodo }) {
+export default function TodoDialog({todo, setTodo}) {
 
     function handleDateChange(dueDate) {
         setTodo({
@@ -33,43 +32,51 @@ export default function TodoDialog({ todo, setTodo }) {
     }
 
     return (<Grid>
-        <Grid item xs={ 12 }>
+        <Grid item xs={12}>
             <TextField
+                inputProps={{
+                    maxLength: 25
+                }}
                 autoFocus
                 margin="dense"
                 id="name"
                 label="Title"
                 type="text"
                 required
-                value={ todo.title }
-                onChange={ handleTitleChange }
+                maxLength={30}
+                value={todo.title}
+                onChange={handleTitleChange}
             />
         </Grid>
-        <Grid item xs={ 12 }>
+        <Grid item xs={12}>
             <TextField
+                inputProps={{
+                    maxLength: 300
+                }}
                 margin="dense"
                 id="information"
                 label="Additional information"
                 type="text"
                 multiline
-                onChange={ handleInformationChange }
-                value={ todo.information }
-                rows={ 6 }
+                rowsMax={30}
+                onChange={handleInformationChange}
+                value={todo.information}
+                rows={6}
             />
         </Grid>
-        <Grid item xs={ 12 }>
-            <DateTimePicker
-                onChange={ handleDateChange }
-                value={ todo.dueDate }
+        <Grid item xs={12}>
+            <KeyboardDateTimePicker
+                onChange={handleDateChange}
+                value={todo.dueDate}
                 margin="dense"
                 id="date"
                 label="Due Date"/>
         </Grid>
-        <Grid item xs={ 12 }>
+        <Grid item xs={12}>
             <FormControlLabel
                 labelPlacement="end"
-                checked={ todo.done }
-                onChange={ handleDoneChange }
+                checked={todo.done}
+                onChange={handleDoneChange}
                 control={
                     <Checkbox/>
                 } label="Done"/>
