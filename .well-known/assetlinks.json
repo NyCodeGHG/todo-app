@@ -1,0 +1,5 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target" : { "namespace": "android_app", "package_name": "de.nycode.todoapp.twa",
+                   "sha256_cert_fingerprints": ["C3:F4:04:C3:F3:09:35:8B:9C:07:87:AB:B6:A1:81:D2:BC:CC:70:8C:C7:F3:72:59:79:95:C3:A1:2F:92:3C:0D"] }
+    }]
